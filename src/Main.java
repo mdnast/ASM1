@@ -1,7 +1,9 @@
+import java.util.Random;
 import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        StudentManagement management = new StudentManagement(10);
+        StudentManagement management = new StudentManagement(100000); // Tăng dung lượng stack để chứa nhiều sinh viên
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -10,7 +12,11 @@ public class Main {
             System.out.println("3. Delete student");
             System.out.println("4. Search student");
             System.out.println("5. Display all students");
-            System.out.println("6. Exit");
+            System.out.println("6. Add random students");
+            System.out.println("7. Sort students by Bubble Sort");
+            System.out.println("8. Sort students by Merge Sort");
+            System.out.println("9. Compare Bubble Sort and Merge Sort");
+            System.out.println("10. Exit");
 
             System.out.print("Choose an option: ");
             int option = scanner.nextInt();
@@ -33,6 +39,21 @@ public class Main {
                     management.displayAllStudents();
                     break;
                 case 6:
+                    System.out.print("Enter the number of random students to add (e.g., 100, 1000, 10000): ");
+                    int count = scanner.nextInt();
+                    scanner.nextLine(); // Consume newline
+                    management.addRandomStudents(count);
+                    break;
+                case 7:
+                    management.sortStudentsByScore();
+                    break;
+                case 8:
+                    management.mergeSortStudentsByScore(); // Merge Sort
+                    break;
+                case 9:
+                    management.compareSortingAlgorithms();
+                    break;
+                case 10:
                     System.out.println("Exiting...");
                     return;
                 default:
