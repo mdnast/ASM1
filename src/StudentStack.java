@@ -59,4 +59,15 @@ public class StudentStack {
             System.out.println("Stack is empty.");
         }
     }
+    public int size() {
+        return top + 1;
+    }
+    public StudentStack cloneStack() {
+        StudentStack clonedStack = new StudentStack(this.capacity); // Tạo stack mới với cùng dung lượng
+        for (int i = 0; i <= this.top; i++) {
+            clonedStack.push(this.stack[i]); // Sao chép từng phần tử
+        }
+        return clonedStack;
+    }
+
 }
