@@ -28,28 +28,29 @@ public class StudentManagement {
 
     public void addRandomStudents(int count) {
         Random random = new Random();
-        long startTime = System.nanoTime(); // Bắt đầu đo thời gian
+        long startTime = System.nanoTime(); // Start time measurement
 
         for (int i = 0; i < count; i++) {
-            String id = "S" + (studentStack.size() + 1); // ID tuần tự
-            String name = NAMES[random.nextInt(NAMES.length)]; // Tên ngẫu nhiên
-            double score = 5 + random.nextDouble() * 5; // Điểm từ 5 đến 10
+            String id = "S" + (studentStack.size() + 1); // Sequential ID
+            String name = NAMES[random.nextInt(NAMES.length)]; // Random name
+            double score = 5 + random.nextDouble() * 5; // Score between 5 and 10
             Student newStudent = new Student(id, name, score);
-            studentStack.push(newStudent); // Thêm vào stack
+            studentStack.push(newStudent); // Add to stack
         }
 
-        long endTime = System.nanoTime(); // Kết thúc đo thời gian
-        long elapsedTime = endTime - startTime; // Thời gian chạy (nano giây)
+        long endTime = System.nanoTime(); // End time measurement
+        long elapsedTime = endTime - startTime; // Execution time in nanoseconds
 
-        // Hiển thị danh sách sinh viên đã thêm
-        System.out.println("\n" + count + " random students added successfully:");
-        studentStack.displayStack();
+        // Display the list of added students
+       // System.out.println("\n" + count + " random students added successfully:");
+        //studentStack.displayStack();
 
-        // Hiển thị thời gian chạy
-        System.out.println("\nTime taken to add " + count + " students: " + elapsedTime + " ns");
+        // Display execution time
+       // System.out.println("\nTime taken to add " + count + " students: " + elapsedTime + " ns");
     }
+
     public void editStudent() {
-        // Mã chỉnh sửa không thay đổi
+        // Code for editing remains unchanged
     }
 
     public void deleteStudent() {
@@ -66,7 +67,7 @@ public class StudentManagement {
         String searchId = scanner.nextLine();
         boolean found = false;
 
-        // Duyệt toàn bộ stack để tìm sinh viên
+        // Traverse the stack to find the student
         for (int i = 0; i <= studentStack.peek().getStudentID().length(); i++) {
             if (studentStack.peek().getStudentID().equals(searchId)) {
                 studentStack.peek().displayInfo();
@@ -78,20 +79,21 @@ public class StudentManagement {
             System.out.println("Student not found.");
         }
     }
+
     public void sortStudentsByScore() {
         if (studentStack.isEmpty()) {
             System.out.println("No students to sort.");
             return;
         }
 
-        // Chuyển stack sang mảng để dễ sắp xếp
+        // Transfer stack to an array for sorting
         int n = studentStack.size();
         Student[] studentsArray = new Student[n];
         for (int i = 0; i < n; i++) {
-            studentsArray[i] = studentStack.pop(); // Lấy từng phần tử từ stack
+            studentsArray[i] = studentStack.pop(); // Extract each element from the stack
         }
 
-        // Đo thời gian bắt đầu
+        // Start time measurement
         long startTime = System.nanoTime();
 
         // Bubble Sort
@@ -105,86 +107,87 @@ public class StudentManagement {
             }
         }
 
-        // Đo thời gian kết thúc
+        // End time measurement
         long endTime = System.nanoTime();
 
-        // Tính toán thời gian chạy (nano giây)
+        // Calculate execution time in nanoseconds
         long elapsedTime = endTime - startTime;
 
-        // Đưa dữ liệu đã sắp xếp trở lại stack
+        // Push sorted data back to the stack
         for (int i = 0; i < n; i++) {
             studentStack.push(studentsArray[i]);
         }
 
-        // Hiển thị kết quả sắp xếp
+        // Display sorted results
         System.out.println("Students sorted by score in ascending order:");
         for (Student student : studentsArray) {
-            student.displayInfo(); // Hiển thị từng sinh viên
+            student.displayInfo(); // Display each student
         }
 
-        // Hiển thị thời gian chạy
+        // Display execution time
         System.out.println("Time taken to sort: " + elapsedTime + " ns");
     }
+
     public void mergeSortStudentsByScore() {
         if (studentStack.isEmpty()) {
             System.out.println("No students to sort.");
             return;
         }
 
-        // Chuyển stack sang mảng để dễ sắp xếp
+        // Transfer stack to an array for sorting
         int n = studentStack.size();
         Student[] studentsArray = new Student[n];
         for (int i = 0; i < n; i++) {
             studentsArray[i] = studentStack.pop();
         }
 
-        // Đo thời gian bắt đầu
+        // Start time measurement
         long startTime = System.nanoTime();
 
         // Merge Sort
         mergeSort(studentsArray, 0, n - 1);
 
-        // Đo thời gian kết thúc
+        // End time measurement
         long endTime = System.nanoTime();
 
-        // Tính toán thời gian chạy (nano giây)
+        // Calculate execution time in nanoseconds
         long elapsedTime = endTime - startTime;
 
-        // Đưa dữ liệu đã sắp xếp trở lại stack
+        // Push sorted data back to the stack
         for (int i = 0; i < n; i++) {
             studentStack.push(studentsArray[i]);
         }
 
-        // Hiển thị kết quả sắp xếp
+        // Display sorted results
         System.out.println("Students sorted by score using Merge Sort in ascending order:");
         for (Student student : studentsArray) {
             student.displayInfo();
         }
 
-        // Hiển thị thời gian chạy
+        // Display execution time
         System.out.println("Time taken to sort with Merge Sort: " + elapsedTime + " ns");
     }
 
-    // Hàm Merge Sort
+    // Merge Sort method
     private void mergeSort(Student[] array, int left, int right) {
         if (left < right) {
             int mid = left + (right - left) / 2;
 
-            // Chia nhỏ
+            // Divide
             mergeSort(array, left, mid);
             mergeSort(array, mid + 1, right);
 
-            // Trộn lại
+            // Merge
             merge(array, left, mid, right);
         }
     }
 
-    // Hàm Trộn
+    // Merge function
     private void merge(Student[] array, int left, int mid, int right) {
         int n1 = mid - left + 1;
         int n2 = right - mid;
 
-        // Tạo mảng tạm thời
+        // Create temporary arrays
         Student[] leftArray = new Student[n1];
         Student[] rightArray = new Student[n2];
 
@@ -195,7 +198,7 @@ public class StudentManagement {
             rightArray[j] = array[mid + 1 + j];
         }
 
-        // Trộn hai mảng tạm lại với nhau
+        // Merge the temporary arrays
         int i = 0, j = 0, k = left;
         while (i < n1 && j < n2) {
             if (leftArray[i].getScore() <= rightArray[j].getScore()) {
@@ -208,7 +211,7 @@ public class StudentManagement {
             k++;
         }
 
-        // Sao chép các phần tử còn lại
+        // Copy remaining elements
         while (i < n1) {
             array[k] = leftArray[i];
             i++;
@@ -224,52 +227,53 @@ public class StudentManagement {
     public void displayAllStudents() {
         studentStack.displayStack();
     }
+
     public void compareSortingAlgorithms() {
         if (studentStack.isEmpty()) {
             System.out.println("No students to sort.");
             return;
         }
 
-        // Tạo bản sao Stack để đảm bảo không ảnh hưởng đến dữ liệu gốc
+        // Create a backup of the stack to avoid modifying the original data
         int n = studentStack.size();
         Student[] originalArray = new Student[n];
         for (int i = 0; i < n; i++) {
             originalArray[i] = studentStack.pop();
         }
 
-        // Clone dữ liệu cho từng thuật toán
+        // Clone data for each algorithm
         Student[] bubbleSortArray = originalArray.clone();
         Student[] mergeSortArray = originalArray.clone();
 
-        // Đo thời gian Bubble Sort
+        // Measure time for Bubble Sort
         long startBubble = System.nanoTime();
         bubbleSort(bubbleSortArray);
         long endBubble = System.nanoTime();
         long bubbleTime = endBubble - startBubble;
 
-        // Đo thời gian Merge Sort
+        // Measure time for Merge Sort
         long startMerge = System.nanoTime();
         mergeSort(mergeSortArray, 0, mergeSortArray.length - 1);
         long endMerge = System.nanoTime();
         long mergeTime = endMerge - startMerge;
 
-        // Hiển thị kết quả so sánh
+        // Display comparison results
         System.out.println("\nComparison of Sorting Algorithms:");
         System.out.println("Bubble Sort time: " + bubbleTime + " ns");
         System.out.println("Merge Sort time: " + mergeTime + " ns");
 
-        // Hiển thị danh sách đã sắp xếp bằng cả hai thuật toán (tùy chọn)
+        // Optionally display sorted lists from both algorithms
         System.out.println("\nStudents sorted by Bubble Sort:");
         for (Student student : bubbleSortArray) {
-            student.displayInfo();
+          ///  student.displayInfo();
         }
 
         System.out.println("\nStudents sorted by Merge Sort:");
         for (Student student : mergeSortArray) {
-            student.displayInfo();
+          ///  student.displayInfo();
         }
 
-        // Đưa lại dữ liệu gốc vào Stack
+        // Push the original data back into the stack
         for (Student student : originalArray) {
             studentStack.push(student);
         }
@@ -288,6 +292,4 @@ public class StudentManagement {
             }
         }
     }
-
-
 }
