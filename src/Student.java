@@ -51,6 +51,9 @@ public class Student {
     }
 
     public void displayInfo() {
-        System.out.println("ID: " + studentID + ", Name: " + name + ", Score: " + score + ", Rank: " + rank);
+        // Làm tròn điểm số với 2 chữ số thập phân
+        String formattedScore = String.format("%.1f", score);
+
+        System.out.println("ID: " + studentID + " Name: " + name + " Score: " + formattedScore + " Rank: " + rank);
     }
 }
